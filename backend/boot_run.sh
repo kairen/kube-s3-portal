@@ -12,7 +12,7 @@ DB_HOST=${DB_HOST:-""}
 DB_DATABASE=${DB_DATABASE:-"ceph-s3"}
 DB_USERNAME=${DB_USERNAME:-"root"}
 DB_PASSWORD=${DB_PASSWORD:-"r00tme"}
-LINK_DB_HOST=$(awk '/database / {print $1}' /etc/hosts)
+LINK_DB_HOST=$(awk '/db / {print $1}' /etc/hosts)
 
 if [ ! -z ${LINK_DB_HOST} ]; then
     DB_HOST=${LINK_DB_HOST}
@@ -35,7 +35,7 @@ if [ -z ${SECERT_KEY} ]; then
 fi
 SECERT_KEY=${SECERT_KEY:-""}
 REGION=${REGION:-"defautl"}
-SERVER_URL=${SERVER_URL:-"s3.example.com"}
+S3_URL=${S3_URL:-"s3.example.com"}
 ADMIN_ENRTYPOINT=${ADMIN_ENRTYPOINT:-"admin"}
 
 echo "-------- Database conf --------"
@@ -48,7 +48,7 @@ echo "-------- S3 conf --------"
 echo "Your s3 access key : ${ACCESS_KEY}"
 echo "Your s3 secret key : ${SECERT_KEY}"
 echo "Your s3 region : ${REGION}"
-echo "Your s3 server URL : ${SERVER_URL}"
+echo "Your s3 server URL : ${S3_URL}"
 echo "Your s3 admin entrypoint : ${ADMIN_ENRTYPOINT}"
 
 # Generating Application Key
@@ -67,7 +67,7 @@ sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=${DB_PASSWORD}/g" .env
 sed -i "s/AccessKey=.*/AccessKey=${ACCESS_KEY}/g" .env
 sed -i "s/SecretKey=.*/SecretKey=${SECERT_KEY}/g" .env
 sed -i "s/Region=.*/Region=${REGION}/g" .env
-sed -i "s/ServerURL=.*/ServerURL=${SERVER_URL}/g" .env
+sed -i "s/ServerURL=.*/ServerURL=${S3_URL}/g" .env
 sed -i "s/AdminEntryPoint=.*/AdminEntryPoint=${ADMIN_ENRTYPOINT}/g" .env
 
 # Starting s3-backend process
