@@ -14,7 +14,7 @@ DB_USERNAME=${DB_USERNAME:-"root"}
 DB_PASSWORD=${DB_PASSWORD:-"r00tme"}
 LINK_DB_HOST=$(awk '/database / {print $1}' /etc/hosts)
 
-if [ -z ${LINK_DB_HOST} ]; then
+if [ ! -z ${LINK_DB_HOST} ]; then
     DB_HOST=${LINK_DB_HOST}
 fi
 
