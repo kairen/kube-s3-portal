@@ -1,0 +1,28 @@
+version: '2'
+services:
+  db:
+    image: mysql:5.6
+    container_name: db
+    environment:
+      - MYSQL_ROOT_PASSWORD="<root_passwd>"
+    ports:
+      - 3306:3306
+  backend:
+    image: imaccloud/s3-api:0.1.0
+    container_name: s3-api
+    links:
+      - db:database
+    environment:
+      - ACCESS_KEY="<s3_access_key>"
+      - SECERT_KEY="<s3_secert_key>"
+      - SERVER_URL="<radosgw_s3_url>"
+      - ADMIN_ENRTYPOINT="<radosgw_entrypoint>"
+    ports:
+      - 8080:80
+  frontend:
+    image: imaccloud/s3-ui:0.1.0
+    container_name: apis
+    environment:
+      - BACKEND_URL="<backend_url>"
+    ports:
+      - 80:3000
