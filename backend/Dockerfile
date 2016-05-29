@@ -3,7 +3,7 @@ FROM tutum/apache-php
 MAINTAINER Kyle Bai (kyle.b@inwinstack.com)
 
 # Install custom PHP application
-RUN apt-get update && apt-get install -yq git && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -yq git nmap && rm -rf /var/lib/apt/lists/*
 RUN rm -fr /app
 RUN cd / && \
     git clone https://github.com/inwinstack/s3-portal-api.git -b feature/deleteFolder-api app && \

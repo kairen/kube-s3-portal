@@ -9,7 +9,7 @@ cd /app
 
 # Application environment var
 DB_HOST=${DB_HOST:-""}
-DB_DATABASE=${DB_DATABASE:-"ceph-s3"}
+DB_DATABASE=${DB_DATABASE:-"ceph"}
 DB_USERNAME=${DB_USERNAME:-"root"}
 DB_PASSWORD=${DB_PASSWORD:-"r00tme"}
 LINK_DB_HOST=$(awk '/db / {print $1}' /etc/hosts)
@@ -73,6 +73,10 @@ sed -i "s/AdminEntryPoint=.*/AdminEntryPoint=${ADMIN_ENRTYPOINT}/g" .env
 # Starting s3-backend process
 rm -rf /etc/apache2/sites-enabled/000-default.conf
 
+echo "Wait for database start"
+while [ ! $(nmap -p 3306 -sT ${DB_HOST} | grep "open  mysql" -c) -gt 0 ]; sleep 0.5; done
+
+php artisan migrate
 a2ensite s3-backend
 a2enmod rewrite
 bash /run.sh

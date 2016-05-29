@@ -6,17 +6,17 @@
 #
 set -e
 
-BACKEND_HOST=${BACKEND_HOST:-"127.0.0.1"}
+BACKEND_ADDRESS=${BACKEND_ADDRESS:-"127.0.0.1:8080"}
 SSL_ENABLE=${SSL_ENABLE:-false}
 
-echo "Your s3 portal backend host : ${BACKEND_HOST}"
+echo "Your s3 portal backend address : ${BACKEND_ADDRESS}"
 
 # Generating s3-portal-ui config file
-URL="http:\/\/127.0.0.1"
-NEW_URL="http:\/\/${BACKEND_HOST}"
+URL="http:\/\/127.0.0.1:8080"
+NEW_URL="http:\/\/${BACKEND_ADDRESS}"
 
-if [ ${SSL_ENABLE} ]; then
-    NEW_URL="https:\/\/${BACKEND_HOST}"
+if ${SSL_ENABLE}; then
+    NEW_URL="https:\/\/${BACKEND_ADDRESS}"
 fi
 
 cd /opt/app
