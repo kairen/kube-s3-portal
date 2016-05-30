@@ -74,7 +74,7 @@ sed -i "s/AdminEntryPoint=.*/AdminEntryPoint=${ADMIN_ENRTYPOINT}/g" .env
 rm -rf /etc/apache2/sites-enabled/000-default.conf
 
 echo "Wait for database start"
-while [ ! $(nmap -p 3306 -sT ${DB_HOST} | grep "open  mysql" -c) -gt 0 ]; sleep 0.5; done
+while [ ! $(nmap -p 3306 -sT ${DB_HOST} | grep "open  mysql" -c) -gt 0 ]; do sleep 0.5; done
 
 php artisan migrate
 a2ensite s3-backend
