@@ -17,7 +17,7 @@ backend:
   ports:
     - 8080:80
 frontend:
-  image: imaccloud/s3-ui:0.1.0
+  image: imaccloud/s3-ui:0.1.1
   container_name: frontend
   environment:
     BACKEND_ADDRESS: "192.168.99.100:8080"
