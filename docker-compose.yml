@@ -5,7 +5,7 @@ db:
     MYSQL_DATABASE: ceph
     MYSQL_ROOT_PASSWORD: r00tme
 backend:
-  image: imaccloud/s3-api:0.1.0
+  image: imaccloud/s3-api:0.1.1
   container_name: backend
   links:
     - db:db

@@ -11,7 +11,7 @@ db:
     MYSQL_DATABASE: ceph
     MYSQL_ROOT_PASSWORD: r00tme
 backend:
-  image: imaccloud/s3-api:0.1.0
+  image: imaccloud/s3-api:0.1.1
   container_name: backend
   links:
     - db:db
@@ -31,6 +31,8 @@ frontend:
     - 80:3000
 ```
 > **注意！** 這邊資料庫也可以透過設定 ```DB_HOST``` 方式來連接。
+
+> **注意！** 這邊```S3_URL```為 radosgw s3 like URL, 必須以網域方式提供。
 
 > **注意!** 這邊的```ACCESS_KEY```與```SECERT_KEY```必須是擁有```caps```權限的使用者。可以透過以下方式建立：
 ```sh
