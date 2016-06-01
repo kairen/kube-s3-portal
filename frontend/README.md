@@ -8,5 +8,5 @@ $ docker build -t imaccloud/s3-ui:0.1.1 .
 ```sh
 $ docker run -d -p 80:3000 --name frontend \
 -e BACKEND_ADDRESS="<backend_address>" \
-imaccloud/s3-ui:0.1.0
+imaccloud/s3-ui:0.1.1
 ```

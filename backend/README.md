@@ -1,7 +1,7 @@
 # Ceph S3 Portal Backend
 若要建置映像檔的話，可以透過以下指令進行：
 ```sh
-$ docker build -t imaccloud/s3-api:0.1.0 .
+$ docker build -t imaccloud/s3-api:0.1.1 .
 ```
 
 快速部署一個 Ceph S3 Backend Server 可以透過以下指令進行：
@@ -12,7 +12,7 @@ $ docker run -d -p 8080:80 --name backend  \
 -e S3_URL="<s3_url>" -e ADMIN_ENRTYPOINT="<admin_entrypoint>" \
 -e ACCESS_KEY="<admin_access_key>" \
 -e SECERT_KEY="<admin_secert_key>" \
-imaccloud/s3-api:0.1.0
+imaccloud/s3-api:0.1.1
 ```
 > 注意! 這邊的```ACCESS_KEY```與```SECERT_KEY```必須是擁有```caps```權限。可以透過以下方式建立：
 ```sh
