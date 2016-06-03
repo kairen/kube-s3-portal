@@ -1,0 +1,6 @@
+mon1:
+  image: ceph/daemon:latest
+  container_name: mon1
+  environment:
+    MON_IP: 172.18.0.2
+    CEPH_PUBLIC_NETWORK: 172.18.0.0/16
