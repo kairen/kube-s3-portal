@@ -1,6 +1,31 @@
-mon1:
+mon:
   image: ceph/daemon:latest
   container_name: mon1
+  net: "cluster-net"
   environment:
     MON_IP: 172.18.0.2
     CEPH_PUBLIC_NETWORK: 172.18.0.0/16
+  volumes:
+    - /etc/ceph:/etc/ceph
+    - /var/lib/ceph/:/var/lib/ceph/
+osd1:
+  image: ceph/daemon:latest
+  container_name: osd1
+  net: "cluster-net"
+  environment:
+    OSD_DEVICE: /dev/vdb
+    OSD_TYPE: disk
+    OSD_FORCE_ZAP: 1
+  volumes:
+    - /etc/ceph:/etc/ceph
+    - /var/lib/ceph/:/var/lib/ceph/
+    - /dev/:/dev/
+rgw:
+  image: ceph/daemon:latest
+  container_name: rgw
+  net: "cluster-net"
+  volumes:
+    - /etc/ceph:/etc/ceph
+    - /var/lib/ceph/:/var/lib/ceph/
+  ports:
+    - "8080:8080"

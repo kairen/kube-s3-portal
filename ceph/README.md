@@ -57,7 +57,7 @@ $ sudo docker run -d --net=cluster-net \
 ceph/daemon osd
 ```
 
-建立一個 msd 容器：
+建立一個 mds 容器：
 ```sh
 $ sudo docker run -d --net=cluster-net \
 -v ${DIR}/lib/ceph/:/var/lib/ceph/ \
