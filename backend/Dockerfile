@@ -7,7 +7,8 @@ RUN apt-get update && apt-get install -yq git nmap && rm -rf /var/lib/apt/lists/
 RUN rm -fr /app
 RUN cd / && \
     git clone https://github.com/kairen/s3-portal-api.git -b feature/delete-folder-api app && \
-    cd /app && composer install && cp .env.example .env
+    cd /app && composer install && cp .env.example .env && \
+    mkdir storage/tmpfile
 
 COPY boot_run.sh /etc/boot_run.sh
 COPY s3-backend.conf /etc/apache2/sites-available/s3-backend.conf
