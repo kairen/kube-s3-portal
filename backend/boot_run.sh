@@ -7,7 +7,7 @@
 set -e
 cd /app
 
-# Application environment var
+# Application  database environment var
 DB_HOST=${DB_HOST:-""}
 DB_DATABASE=${DB_DATABASE:-"ceph"}
 DB_USERNAME=${DB_USERNAME:-"root"}
@@ -33,8 +33,10 @@ if [ -z ${SECERT_KEY} ]; then
     echo "ERROR: Must provide radosgw admin secret key ..."
     exit 1
 fi
+
+# Application ceph radosgw environment var
 SECERT_KEY=${SECERT_KEY:-""}
-REGION=${REGION:-"defautl"}
+REGION=${REGION:-"default"}
 S3_URL=${S3_URL:-"s3.example.com"}
 ADMIN_ENRTYPOINT=${ADMIN_ENRTYPOINT:-"admin"}
 

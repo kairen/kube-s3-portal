@@ -3,23 +3,24 @@ db:
   container_name: db
   environment:
     MYSQL_DATABASE: ceph
-    MYSQL_ROOT_PASSWORD: r00tme
+    MYSQL_ROOT_PASSWORD: "passwd"
 backend:
-  image: imaccloud/s3-api:0.1.1
+  image: imaccloud/s3-api:0.2.0
   container_name: backend
   links:
     - db:db
   environment:
-    ACCESS_KEY: "<access_key>"
-    SECERT_KEY: "<secert_key>"
-    S3_URL: "<radosgw_s3_url>"
-    ADMIN_ENRTYPOINT: "<radosgw_admin_entrypoint>"
+    ACCESS_KEY: "<RADOSGW_ADMIN_ACCESS_KEY>"
+    SECERT_KEY: "<RADOSGW_ADMIN_SECERT_KEY>"
+    S3_URL: "<RADOSGW_S3_URL>"
+    ADMIN_ENRTYPOINT: "<RADOSGW_ADMIN_ENRTYPOINT>"
   ports:
     - 8080:80
 frontend:
-  image: imaccloud/s3-ui:0.1.1
+  image: imaccloud/s3-ui:0.2.0
   container_name: frontend
   environment:
-    BACKEND_ADDRESS: "192.168.99.100:8080"
+    BACKEND_ADDRESS: "<S3_API_ADDRESS>"
   ports:
     - 80:3000
+    -

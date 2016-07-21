@@ -9,32 +9,33 @@ db:
   container_name: db
   environment:
     MYSQL_DATABASE: ceph
-    MYSQL_ROOT_PASSWORD: r00tme
+    MYSQL_ROOT_PASSWORD: "passwd"
 backend:
-  image: imaccloud/s3-api:0.1.1
+  image: imaccloud/s3-api:0.2.0
   container_name: backend
   links:
     - db:db
   environment:
-    ACCESS_KEY: "<access_key>"
-    SECERT_KEY: "<secert_key>"
-    S3_URL: "<radosgw_s3_url>"
-    ADMIN_ENRTYPOINT: "<radosgw_admin_entrypoint>"
+    ACCESS_KEY: "<RADOSGW_ADMIN_ACCESS_KEY>"
+    SECERT_KEY: "<RADOSGW_ADMIN_SECERT_KEY>"
+    S3_URL: "<RADOSGW_S3_URL>"
+    ADMIN_ENRTYPOINT: "<RADOSGW_ADMIN_ENRTYPOINT>"
   ports:
     - 8080:80
 frontend:
-  image: imaccloud/s3-ui:0.1.1
+  image: imaccloud/s3-ui:0.2.0
   container_name: frontend
   environment:
-    BACKEND_ADDRESS: "192.168.99.100:8080"
+    BACKEND_ADDRESS: "<S3_API_ADDRESS>"
   ports:
     - 80:3000
+
 ```
 > **注意！** 這邊資料庫也可以透過設定 ```DB_HOST``` 方式來連接。
 
 > **注意！** 這邊```S3_URL```為 radosgw s3 like URL, 必須以網域方式提供。
 
-> **注意!** 這邊的```ACCESS_KEY```與```SECERT_KEY```必須是擁有```caps```權限的使用者。可以透過以下方式建立：
+> **注意!** 這邊的```ACCESS_KEY```與```SECERT_KEY```的使用者必須擁有```caps```權限。可以透過以下方式建立：
 ```sh
 $ radosgw-admin caps add --uid="<admin_uid>" --caps="users=*"
 ```
@@ -45,8 +46,18 @@ $ radosgw-admin caps add --uid="<admin_uid>" --caps="users=*"
 
 確認檔案設定沒問題後，即可透過以下指令進行部署：
 ```sh
-$ docker-compse up
+$ docker-compose up
 ```
 > 若要放到背景可以加入```-d```參數。
+
+若要停止服務，執行以下指令：
+```sh
+$ docker-compose stop
+```
+
+若要刪除服務，執行以下指令：
+```sh
+$ docker-compose rm -f
+```
 
 ![snapshot](images/snapshot-ui.png)

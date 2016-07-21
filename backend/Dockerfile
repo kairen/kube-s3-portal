@@ -6,7 +6,7 @@ MAINTAINER Kyle Bai (kyle.b@inwinstack.com)
 RUN apt-get update && apt-get install -yq git nmap && rm -rf /var/lib/apt/lists/*
 RUN rm -fr /app
 RUN cd / && \
-    git clone https://github.com/kairen/s3-portal-api.git -b feature/delete-folder-api app && \
+    git clone https://github.com/kairen/s3-portal-api.git -b dev app && \
     cd /app && composer install && cp .env.example .env && \
     mkdir storage/tmpfile
 
