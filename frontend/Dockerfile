@@ -4,7 +4,7 @@ MAINTAINER Kyle Bai (kyle.b@inwinstack.com)
 
 # Install custom application
 RUN cd /opt/ && \
-    git clone https://github.com/chaoen/s3-portal-ui.git -b feature-user-list app/ && \
+    git clone https://github.com/inwinstack/s3-portal-ui.git -b dev app/ && \
     cd app/ && npm install && \
     npm install browser-sync-webpack-plugin@1.0.3 && \
     cp config.example.js config.js

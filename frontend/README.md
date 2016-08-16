@@ -1,7 +1,7 @@
 # inwinStack Ceph S3 Portal UI
 本專案將 Ceph S3 Portal UI 建置為 Docker 容器應用程式。若要建立映像檔，可以透過以下指令進行：
 ```sh
-$ docker build -t imaccloud/s3-ui:0.2.0 .
+$ docker build -t imaccloud/s3-ui:latest .
 ```
 
 # Quick Start
@@ -11,7 +11,7 @@ $ docker build -t imaccloud/s3-ui:0.2.0 .
 ```sh
 $ docker run -d -p 80:3000 --name frontend \
 -e BACKEND_ADDRESS="<backend_address>" \
-imaccloud/s3-ui:0.2.0
+imaccloud/s3-ui:latest
 ```
 > * ```BACKEND_ADDRESS```輸入 S3 Portal API 的 Domain name。
 
