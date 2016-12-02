@@ -2,7 +2,7 @@
 本專案說明如何透過 Dockerfile 部署 Ceph S3 Portal 前端與後端服務，目前已提供 Docker Compose 來快速建置。
 
 ### Quick Start
-透過 docker-compose 執行的話，請修改```docker-compose.yml```檔案，然後修改以下內容：
+透過 docker-compose 執行的話，請修改`docker-compose.yml`檔案，然後修改以下內容：
 ```yaml
 db:
   image: mysql:5.6
@@ -11,7 +11,7 @@ db:
     MYSQL_DATABASE: ceph
     MYSQL_ROOT_PASSWORD: "passwd"
 backend:
-  image: imaccloud/s3-api:0.2.0
+  image: kairen/s3-api:latest
   container_name: backend
   links:
     - db:db
@@ -23,7 +23,7 @@ backend:
   ports:
     - 8080:80
 frontend:
-  image: imaccloud/s3-ui:0.2.0
+  image: kairen/s3-ui:latest
   container_name: frontend
   environment:
     BACKEND_ADDRESS: "<S3_API_ADDRESS>"
@@ -31,11 +31,11 @@ frontend:
     - 80:3000
 
 ```
-> **注意！** 這邊資料庫也可以透過設定 ```DB_HOST``` 方式來連接。
+> **注意！** 這邊資料庫也可以透過設定`DB_HOST`方式來連接。
 
-> **注意！** 這邊```S3_URL```為 radosgw s3 like URL, 必須以網域方式提供。
+> **注意！** 這邊`S3_URL`為 radosgw s3 like URL, 必須以網域方式提供。
 
-> **注意!** 這邊的```ACCESS_KEY```與```SECERT_KEY```的使用者必須擁有```caps```權限。可以透過以下方式建立：
+> **注意!** 這邊的`ACCESS_KEY`與`SECERT_KEY`的使用者必須擁有`caps`權限。可以透過以下方式建立：
 ```sh
 $ radosgw-admin caps add --uid="<admin_uid>" --caps="users=*"
 ```
@@ -48,7 +48,7 @@ $ radosgw-admin caps add --uid="<admin_uid>" --caps="users=*"
 ```sh
 $ docker-compose up
 ```
-> 若要放到背景可以加入```-d```參數。
+> 若要放到背景可以加入`-d`參數。
 
 若要停止服務，執行以下指令：
 ```sh
