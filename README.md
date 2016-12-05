@@ -11,7 +11,7 @@ db:
     MYSQL_DATABASE: ceph
     MYSQL_ROOT_PASSWORD: "passwd"
 backend:
-  image: kairen/s3-api:latest
+  image: kairen/s3-portal-api:latest
   container_name: backend
   links:
     - db:db
@@ -23,13 +23,12 @@ backend:
   ports:
     - 8080:80
 frontend:
-  image: kairen/s3-ui:latest
+  image: kairen/s3-portal-ui:latest
   container_name: frontend
   environment:
     BACKEND_ADDRESS: "<S3_API_ADDRESS>"
   ports:
     - 80:3000
-
 ```
 > **注意！** 這邊資料庫也可以透過設定`DB_HOST`方式來連接。
 
