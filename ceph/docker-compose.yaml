@@ -1,7 +1,8 @@
 mon:
   image: ceph/daemon:latest
   container_name: mon1
-  net: "cluster-net"
+  net: cluster-net
+  command: mon
   environment:
     MON_IP: 172.18.0.2
     CEPH_PUBLIC_NETWORK: 172.18.0.0/16
@@ -11,7 +12,9 @@ mon:
 osd1:
   image: ceph/daemon:latest
   container_name: osd1
-  net: "cluster-net"
+  net: cluster-net
+  command: osd
+  privileged: true
   environment:
     OSD_DEVICE: /dev/vdb
     OSD_TYPE: disk
@@ -23,9 +26,20 @@ osd1:
 rgw:
   image: ceph/daemon:latest
   container_name: rgw
-  net: "cluster-net"
+  net: cluster-net
+  command: rgw
   volumes:
     - /etc/ceph:/etc/ceph
     - /var/lib/ceph/:/var/lib/ceph/
   ports:
     - "8080:8080"
+restapi:
+  image: ceph/daemon:latest
+  container_name: rgw
+  net: cluster-net
+  command: restapi
+  volumes:
+    - /etc/ceph:/etc/ceph
+    - /var/lib/ceph/:/var/lib/ceph/
+  ports:
+    - "5000:5000"

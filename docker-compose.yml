@@ -3,23 +3,24 @@ db:
   container_name: db
   environment:
     MYSQL_DATABASE: ceph
-    MYSQL_ROOT_PASSWORD: "r00tme"
+    MYSQL_ROOT_PASSWORD: "root"
 backend:
-  image: kairen/s3-portal-api:latest
-  container_name: backend
+  image: kairen/s3-portal-api:dev
+  container_name: s3-api
   links:
     - db:db
   environment:
-    ACCESS_KEY: "<RADOSGW_ADMIN_ACCESS_KEY>"
-    SECERT_KEY: "<RADOSGW_ADMIN_SECERT_KEY>"
-    S3_URL: "<RADOSGW_S3_URL>"
-    ADMIN_ENRTYPOINT: "<RADOSGW_ADMIN_ENRTYPOINT>"
+    S3_ACCESS_KEY: "<ADMIN_ACCESS_KEY>"
+    S3_SECERT_KEY: "<ADMIN_SECERT_KEY>"
+    S3_URL: "<S3_URL>"
+    S3_PORT: "<S3_PORT>"
+    S3_ADMIN_ENRTYPOINT: "<RADOSGW_ADMIN_ENRTYPOINT>"
   ports:
     - 8080:80
 frontend:
-  image: kairen/s3-portal-ui:latest
-  container_name: frontend
+  image: kairen/s3-portal-ui:dev
+  container_name: s3-ui
   environment:
-    BACKEND_ADDRESS: "<S3_API_ADDRESS>"
+    API_HOST: "<S3_API_URL>"
   ports:
     - 80:3000

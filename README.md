@@ -1,62 +1,56 @@
-# Dockerize Ceph S3 Portal
-本專案說明如何透過 Dockerfile 部署 Ceph S3 Portal 前端與後端服務，目前已提供 Docker Compose 來快速建置。
+# Containerize Ceph S3 Portal
+This project is an dockerize and kubernetize for [S3 Portal](https://github.com/inwinstack/s3-portal-ui).
 
-### Quick Start
-透過 docker-compose 執行的話，請修改`docker-compose.yml`檔案，然後修改以下內容：
-```yaml
+### Docker Compose Quick Start
+Following the below steps to create application.
+
+Requirement:
+* Docker engine.
+* Docker compose tool.
+
+First, Set the environment variables in `docker-compose.yml`, For example:
+```yml
 db:
   image: mysql:5.6
   container_name: db
   environment:
     MYSQL_DATABASE: ceph
-    MYSQL_ROOT_PASSWORD: "passwd"
+    MYSQL_ROOT_PASSWORD: "root"
 backend:
-  image: kairen/s3-portal-api:latest
-  container_name: backend
+  image: kairen/s3-portal-api:dev
+  container_name: s3-api
   links:
     - db:db
   environment:
-    ACCESS_KEY: "<RADOSGW_ADMIN_ACCESS_KEY>"
-    SECERT_KEY: "<RADOSGW_ADMIN_SECERT_KEY>"
-    S3_URL: "<RADOSGW_S3_URL>"
-    ADMIN_ENRTYPOINT: "<RADOSGW_ADMIN_ENRTYPOINT>"
+    S3_ACCESS_KEY: "<ADMIN_ACCESS_KEY>"
+    S3_SECERT_KEY: "<ADMIN_SECERT_KEY>"
+    S3_URL: "<S3_URL>"
+    S3_PORT: "<S3_PORT>"
+    S3_ADMIN_ENRTYPOINT: "<RADOSGW_ADMIN_ENRTYPOINT>"
+    CEPH_REST_API_PORT: "<CEPH_REST_API_PORT>"
   ports:
     - 8080:80
 frontend:
-  image: kairen/s3-portal-ui:latest
-  container_name: frontend
+  image: kairen/s3-portal-ui:dev
+  container_name: s3-ui
   environment:
-    BACKEND_ADDRESS: "<S3_API_ADDRESS>"
+    API_HOST: "<S3_API_URL>"
   ports:
     - 80:3000
 ```
-> **注意！** 這邊資料庫也可以透過設定`DB_HOST`方式來連接。
-
-> **注意！** 這邊`S3_URL`為 radosgw s3 like URL, 必須以網域方式提供。
-
-> **注意!** 這邊的`ACCESS_KEY`與`SECERT_KEY`的使用者必須擁有`caps`權限。可以透過以下方式建立：
+> The `S3_ACCESS_KEY` and `S3_SECERT_KEY` account must be admin caps, follow as command to set in rgw:
 ```sh
 $ radosgw-admin caps add --uid="<admin_uid>" --caps="users=*"
 ```
-> 其他參數設定如下所示：
+> Other caps options：
 ```
 --caps="[users|buckets|metadata|usage|zone]=[*|read|write|read, write]"
 ```
 
-確認檔案設定沒問題後，即可透過以下指令進行部署：
+Now, just run this command to deploy:
 ```sh
 $ docker-compose up
 ```
-> 若要放到背景可以加入`-d`參數。
 
-若要停止服務，執行以下指令：
-```sh
-$ docker-compose stop
-```
-
-若要刪除服務，執行以下指令：
-```sh
-$ docker-compose rm -f
-```
 
 ![snapshot](images/snapshot-ui.png)
