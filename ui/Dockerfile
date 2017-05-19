@@ -3,11 +3,11 @@ MAINTAINER Kyle Bai <kyle.b@inwinstack.com>
 
 RUN apk add --no-cache git bash && \
   rm -f /var/cache/apk/* && \
-  git clone https://github.com/inwinstack/s3-portal-ui.git -b dev /app && \
+  git clone https://github.com/kairen/s3-portal-ui.git -b hotfix/listbucket-api /app && \
   cd /app && npm install && npm cache clear && \
-  cp config.examcleaple.js config.js
+  cp config.example.js config.js
 
-COPY entrypoint.sh /usr/local/bcin/
+COPY entrypoint.sh /usr/local/bin/
 
 WORKDIR /app
 EXPOSE 3000 3001
