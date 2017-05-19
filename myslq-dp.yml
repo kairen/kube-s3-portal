@@ -28,14 +28,15 @@ spec:
     #     }
     # ]'
     spec:
-      securityContext:
-        fsGroup: 999
+    #   securityContext:
+    #     fsGroup: 999
       containers:
       - name: portal-mysql
         image: mysql:5.6
         env:
         - name: MYSQL_DATABASE
           value: ceph
+        # $ echo -n "1f2d1e2e67df" > ./password.txt
         # $ kubectl create secret generic mysql-pass --from-file=password.txt
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
@@ -43,7 +44,7 @@ spec:
               name: mysql-pass
               key: password.txt
         ports:
-         - containerPort: 3306
+        - containerPort: 3306
         volumeMounts:
         - name: mysql-pv
           mountPath: /var/lib/mysql

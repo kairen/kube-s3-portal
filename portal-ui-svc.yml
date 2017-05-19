@@ -7,7 +7,9 @@ metadata:
     app: portal-ui
     daemon: ui
 spec:
-  clusterIP: None
+  type: LoadBalancer
+  externalIPs:
+  - 172.20.3.90
   ports:
   - port: 3000
     protocol: TCP

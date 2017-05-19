@@ -25,6 +25,8 @@ spec:
           value: portal-mysql.default.svc.cluster.local
         - name: DB_NAME
           value: ceph
+        - name: DB_USER
+          value: root
         - name: DB_PWD
           valueFrom:
             secretKeyRef:
