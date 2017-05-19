@@ -3,7 +3,7 @@
 # Program: Running apache script
 #
 
-set -e
+set -ex
 cd /app
 
 # Database default value

@@ -1,0 +1,53 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: portal-mysql
+  labels:
+    app: portal-mysql
+spec:
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: portal-mysql
+    #   annotations:
+    #     pod.alpha.kubernetes.io/init-containers: '[
+    #     {
+    #         "name": "mysql-init",
+    #         "image": "busybox",
+    #         "imagePullPolicy": "IfNotPresent",
+    #         "command": ["sh", "-c", "chown -R 999:999 /var/lib/mysql"],
+    #         "volumeMounts": [
+    #             {
+    #               "name": "mysql-pv",
+    #               "mountPath": "/var/lib/mysql"
+    #             }
+    #         ]
+    #     }
+    # ]'
+    spec:
+      securityContext:
+        fsGroup: 999
+      containers:
+      - name: portal-mysql
+        image: mysql:5.6
+        env:
+        - name: MYSQL_DATABASE
+          value: ceph
+        # $ kubectl create secret generic mysql-pass --from-file=password.txt
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-pass
+              key: password.txt
+        ports:
+         - containerPort: 3306
+        volumeMounts:
+        - name: mysql-pv
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-pv
+        persistentVolumeClaim:
+          claimName: portal-mysql-pvc

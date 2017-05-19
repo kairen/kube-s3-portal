@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: portal-mysql-pv
+  labels:
+    app: portal-mysql
+    # no_root_squash,no_all_squash
+spec:
+  capacity:
+    storage: 50Gi
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  nfs:
+    path: /var/nfs/mysql
+    server: 172.20.3.91

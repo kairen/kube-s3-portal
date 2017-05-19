@@ -1,0 +1,60 @@
+---
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  labels:
+    app: portal-api
+    daemon: api
+  name: portal-api
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: portal-api
+      labels:
+        app: portal-api
+        daemon: api
+    spec:
+      containers:
+      - name: portal-api
+        image: inwinstack/s3-portal-api:dev
+        ports:
+        - containerPort: 80
+        env:
+        - name: DB_HOST
+          value: portal-mysql.default.svc.cluster.local
+        - name: DB_NAME
+          value: ceph
+        - name: DB_PWD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-pass
+              key: password.txt
+        - name: S3_ACCESS_KEY
+          value: <ACCESS_KEY>
+        - name: S3_SECERT_KEY
+          value: <SECERT_KEY>
+        - name: S3_URL
+          value: <S3_URL>
+        - name: S3_PORT
+          value: "<S3_PORT>"
+        - name: CEPH_REST_API_PORT
+          value: "<REST_API_PORT>"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 120
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          timeoutSeconds: 5
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: ".5"
+          limits:
+            memory: "128Mi"
+            cpu: ".5"

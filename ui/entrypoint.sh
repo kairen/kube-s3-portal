@@ -3,7 +3,7 @@
 # Program: Running nodejs script
 #
 
-set -eu
+set -ex
 cd /app
 
 API_HOST=${API_HOST:-"127.0.0.1:8080"}
