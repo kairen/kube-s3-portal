@@ -1,4 +1,4 @@
-FROM node:6.10-alpine
+FROM mhart/alpine-node:6
 MAINTAINER Kyle Bai <kyle.b@inwinstack.com>
 
 RUN apk add --no-cache git bash && \
