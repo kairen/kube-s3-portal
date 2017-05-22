@@ -5,7 +5,7 @@ db:
     MYSQL_DATABASE: ceph
     MYSQL_ROOT_PASSWORD: "root"
 backend:
-  image: kairen/s3-portal-api:dev
+  image: inwinstack/s3-portal-api:dev
   container_name: s3-api
   links:
     - db:db
@@ -18,7 +18,7 @@ backend:
   ports:
     - 8080:80
 frontend:
-  image: kairen/s3-portal-ui:dev
+  image: inwinstack/s3-portal-ui:dev
   container_name: s3-ui
   environment:
     API_HOST: "<S3_API_URL>"
