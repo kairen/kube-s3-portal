@@ -3,7 +3,7 @@ MAINTAINER Kyle Bai <kyle.b@inwinstack.com>
 
 RUN apk add --no-cache git bash && \
   rm -f /var/cache/apk/* && \
-  git clone https://github.com/kairen/s3-portal-ui.git -b demo/fix-user-list /app && \
+  git clone https://github.com/JuliusChen/s3-portal-ui.git -b work-around/COMPUTEX-Demo /app && \
   cd /app && npm install && npm cache clear && \
   cp config.example.js config.js
 
