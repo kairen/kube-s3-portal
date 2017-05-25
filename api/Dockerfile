@@ -19,7 +19,7 @@ RUN apk add --no-cache \
   curl -sS https://getcomposer.org/installer -o setup.php && \
   php setup.php --install-dir=/usr/local/bin --filename=composer && \
   rm setup.php && \
-  git clone https://github.com/inwinstack/s3-portal-api.git -b dev /app && \
+  git clone https://github.com/kairen/s3-portal-api.git -b feature/object-max-key /app && \
   cd /app && composer install && \
   cp .env.example .env && \
   mkdir /run/apache2 && \
