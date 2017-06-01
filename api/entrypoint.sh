@@ -7,10 +7,10 @@ set -ex
 cd /app
 
 # Database default value
-DB_HOST=${DB_HOST:="localhost"}
-DB_NAME=${DB_NAME:="ceph"}
-DB_USER=${DB_USER:="root"}
-DB_PWD=${DB_PWD:="root"}
+DB_HOST=${DB_HOST:-"localhost"}
+DB_NAME=${DB_NAME:-"ceph"}
+DB_USER=${DB_USER:-"root"}
+DB_PWD=${DB_PWD:-"root"}
 
 # Ceph radosgw s3 default value
 S3_ACCESS_KEY=${S3_ACCESS_KEY:-""}
